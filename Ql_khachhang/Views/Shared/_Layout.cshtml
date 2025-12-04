@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hệ Thống CRM</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <i class="fas fa-chart-pie me-2"></i> CRM PRO
+                </div>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")">
+                    <a href="@Url.Action("Index", "Home")">
+                        <i class="fas fa-home"></i> <span>Trang chủ</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "KhachHang" ? "active" : "")">
+                    <a href="@Url.Action("Index", "KhachHang")">
+                        <i class="fas fa-users"></i> <span>Khách hàng</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "NhanVien" ? "active" : "")">
+                    <a href="@Url.Action("Index", "NhanVien")">
+                        <i class="fas fa-user-tie"></i> <span>Nhân viên</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "DichVu" ? "active" : "")">
+                    <a href="@Url.Action("Index", "DichVu")">
+                        <i class="fas fa-cut"></i> <span>Dịch vụ</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "LichHen" ? "active" : "")">
+                    <a href="@Url.Action("Index", "LichHen")">
+                        <i class="fas fa-calendar-alt"></i> <span>Lịch hẹn</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ThanhToan" ? "active" : "")">
+                    <a href="@Url.Action("Index", "ThanhToan")">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Thanh toán</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "KhuyenMai" ? "active" : "")">
+                    <a href="@Url.Action("Index", "KhuyenMai")">
+                        <i class="fas fa-gift"></i> <span>Khuyến mãi</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "PhanHoi" ? "active" : "")">
+                    <a href="@Url.Action("Index", "PhanHoi")">
+                        <i class="fas fa-comments"></i> <span>Phản hồi</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "ChiNhanh" ? "active" : "")">
+                    <a href="@Url.Action("Index", "ChiNhanh")">
+                        <i class="fas fa-building"></i> <span>Chi nhánh</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "BaoCao" ? "active" : "")">
+                    <a href="@Url.Action("Index", "BaoCao")">
+                        <i class="fas fa-chart-line"></i> <span>Báo cáo</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mt-auto p-3 text-center" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">
+                <p>&copy; 2024 Nhóm 9 HUIT</p>
+            </div>
+        </nav>
+
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-light text-primary shadow-sm">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <div class="ms-auto d-flex align-items-center">
+                        <div class="me-3 text-end d-none d-md-block">
+                            <span class="d-block text-gray-600 small">Xin chào,</span>
+                            <span class="fw-bold text-primary">Admin Quản Lý</span>
+                        </div>
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://ui-avatars.com/api/?name=Admin&background=4e73df&color=fff" alt="admin" width="40" height="40" class="rounded-circle shadow-sm">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                                <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid px-4">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
