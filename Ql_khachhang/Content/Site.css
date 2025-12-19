@@ -1,26 +1,5 @@
-﻿/* Set padding to keep content from hitting the edges */
-.body-content {
-    margin-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-/* Import Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/* --- 1. CÀI ĐẶT CHUNG (FONTS & BIẾN SỐ) --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
     --primary-color: #4e73df;
@@ -30,7 +9,8 @@ textarea {
     --warning-color: #f6c23e;
     --danger-color: #e74a3b;
     --light-bg: #f8f9fc;
-    --dark-sidebar: #224abe; /* Màu xanh đậm hiện đại */
+    --dark-sidebar: #224abe;
+    --dark-header: #2c3e50; /* Màu đen xanh cho tiêu đề bảng */
     --card-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
 }
 
@@ -38,10 +18,11 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-bg);
     color: #5a5c69;
+    margin: 0;
     overflow-x: hidden;
 }
 
-/* --- Wrapper & Sidebar --- */
+/* --- 2. CẤU TRÚC LAYOUT (SIDEBAR & CONTENT) --- */
 .wrapper {
     display: flex;
     width: 100%;
@@ -53,13 +34,13 @@ body {
     max-width: 250px;
     background: linear-gradient(180deg, var(--dark-sidebar) 10%, #1a3a9c 100%);
     color: #fff;
-    transition: all 0.3s;
     min-height: 100vh;
+    transition: all 0.3s;
 }
 
-    #sidebar.active {
-        margin-left: -250px;
-    }
+#sidebar.active {
+    margin-left: -250px;
+}
 
 .sidebar-header {
     padding: 20px;
@@ -77,79 +58,105 @@ body {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #sidebar ul li a {
     padding: 15px 20px;
-    font-size: 0.95rem;
     display: block;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: 0.3s;
     border-left: 4px solid transparent;
+    transition: 0.3s;
+    font-size: 0.95rem;
 }
 
-    #sidebar ul li a:hover, #sidebar ul li.active a {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.1);
-        border-left-color: #fff;
-        font-weight: 600;
-    }
+#sidebar ul li a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
 
-    #sidebar ul li a i {
-        margin-right: 10px;
-        width: 20px;
-        text-align: center;
-    }
+#sidebar ul li a:hover, 
+#sidebar ul li.active a {
+    background: rgba(255, 255, 255, 0.1);
+    border-left-color: #fff;
+    color: #fff;
+    font-weight: 600;
+}
 
-/* --- Content Area --- */
 #content {
     width: 100%;
     min-height: 100vh;
+    padding: 20px;
     transition: all 0.3s;
 }
 
-/* --- Navbar --- */
+/* --- 3. NAVBAR & CARD --- */
 .navbar {
     padding: 15px 30px;
     background: #fff;
     box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, 0.05);
+    margin-bottom: 20px;
 }
 
-/* --- Cards --- */
 .card {
     border: none;
-    border-radius: 15px; /* Bo góc tròn hơn */
+    border-radius: 15px;
     box-shadow: var(--card-shadow);
+    background: #fff;
+    overflow: hidden;
     transition: transform 0.2s;
     margin-bottom: 24px;
 }
 
-    .card:hover {
-        transform: translateY(-5px); /* Hiệu ứng bay lên nhẹ */
-    }
-
-.stat-card .card-body {
-    padding: 1.5rem;
+.card:hover {
+    transform: translateY(-5px);
 }
 
+/* --- 4. THIẾT KẾ BẢNG (TABLES) --- */
+.table thead th {
+    background-color: var(--dark-header) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 18px 15px !important;
+    border: none !important;
+    text-align: center;
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #f2f4f9;
+}
+
+/* Căn trái cho các cột thông tin văn bản */
+.table tbody td:nth-child(2),
+.table tbody td:nth-child(3) {
+    text-align: left;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(78, 115, 223, 0.05) !important;
+}
+
+/* --- 5. THỐNG KÊ (STAT CARDS) --- */
 .stat-label {
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
 }
 
 .stat-value {
     font-size: 1.8rem;
     font-weight: 700;
     color: #5a5c69;
-    margin-bottom: 0.5rem;
 }
 
-/* Icon box styling within cards */
 .stat-icon {
     width: 50px;
     height: 50px;
@@ -161,90 +168,43 @@ body {
     color: #fff;
 }
 
-/* Card Specific Colors */
-.border-left-primary {
-    border-left: 0.25rem solid var(--primary-color) !important;
-}
+/* Màu sắc bổ trợ */
+.border-left-primary { border-left: 0.25rem solid var(--primary-color) !important; }
+.bg-icon-primary { background-color: var(--primary-color); box-shadow: 0 4px 10px rgba(78, 115, 223, 0.4); }
 
-.text-primary {
-    color: var(--primary-color) !important;
-}
+.border-left-success { border-left: 0.25rem solid var(--success-color) !important; }
+.bg-icon-success { background-color: var(--success-color); box-shadow: 0 4px 10px rgba(28, 200, 138, 0.4); }
 
-.bg-icon-primary {
+.border-left-warning { border-left: 0.25rem solid var(--warning-color) !important; }
+.bg-icon-warning { background-color: var(--warning-color); box-shadow: 0 4px 10px rgba(246, 194, 62, 0.4); }
+
+/* --- 6. FORM & NÚT BẤM --- */
+.btn-primary {
     background-color: var(--primary-color);
-    box-shadow: 0 4px 10px rgba(78, 115, 223, 0.4);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 600;
 }
 
-.border-left-success {
-    border-left: 0.25rem solid var(--success-color) !important;
+input, select, textarea {
+    max-width: 100%; /* Đảm bảo responsive */
+    border-radius: 8px !important;
+    padding: 8px 12px;
+    border: 1px solid #d1d3e2;
 }
 
-.text-success {
-    color: var(--success-color) !important;
+/* Form input trong các trang chi tiết có thể giới hạn chiều rộng */
+.form-control-limited {
+    max-width: 280px;
 }
 
-.bg-icon-success {
-    background-color: var(--success-color);
-    box-shadow: 0 4px 10px rgba(28, 200, 138, 0.4);
-}
-
-.border-left-info {
-    border-left: 0.25rem solid var(--info-color) !important;
-}
-
-.text-info {
-    color: var(--info-color) !important;
-}
-
-.bg-icon-info {
-    background-color: var(--info-color);
-    box-shadow: 0 4px 10px rgba(54, 185, 204, 0.4);
-}
-
-.border-left-warning {
-    border-left: 0.25rem solid var(--warning-color) !important;
-}
-
-.text-warning {
-    color: var(--warning-color) !important;
-}
-
-.bg-icon-warning {
-    background-color: var(--warning-color);
-    box-shadow: 0 4px 10px rgba(246, 194, 62, 0.4);
-}
-
-/* --- Lists & Feedbacks --- */
-.appointment-item, .feedback-item {
-    padding: 15px;
-    border-bottom: 1px solid #e3e6f0;
-    transition: background 0.2s;
-}
-
-    .appointment-item:last-child, .feedback-item:last-child {
-        border-bottom: none;
-    }
-
-    .appointment-item:hover, .feedback-item:hover {
-        background-color: #f8f9fc;
-        border-radius: 10px;
-    }
-
-.appointment-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #eaecf4;
-    color: var(--dark-sidebar);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-}
-
-.rating i {
-    font-size: 0.8rem;
-    color: var(--warning-color);
+/* --- 7. TRẠNG THÁI & PHẢN HỒI --- */
+.badge {
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.75rem;
 }
 
 .feedback-text {
@@ -256,13 +216,15 @@ body {
     margin: 10px 0;
 }
 
-/* Responsive */
+/* --- 8. RESPONSIVE --- */
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
     }
-
-        #sidebar.active {
-            margin-left: 0;
-        }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    .table thead {
+        display: none; /* Nên cân nhắc dùng card-view cho mobile */
+    }
 }
