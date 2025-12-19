@@ -1,0 +1,39 @@
+﻿@model IEnumerable<THANHTOAN.Models.THANH_TOAN>
+
+<h2>Danh sách thanh toán</h2>
+
+<a class="btn btn-success mb-3" href="@Url.Action("Create")">➕ Thêm thanh toán</a>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã</th>
+            <th>Khách hàng</th>
+            <th>Ngày</th>
+            <th>Tổng tiền</th>
+            <th>Phương thức</th>
+            <th>Khuyến mãi</th>
+            <th width="180"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MATT</td>
+                <td>@(item.KHACH_HANG != null ? item.KHACH_HANG.HOTEN : "Không rõ")</td>
+                <td>@item.NGAYTT.ToString("dd/MM/yyyy")</td>
+                <td class="text-end">@item.TONGTIEN.ToString("N0") VNĐ</td>
+                <td>@item.PHUONGTHUC</td>
+                <td>@(item.KHUYEN_MAI?.TENKM ?? "—")</td>
+                <td class="text-center">
+                    <div class="btn-group">
+                        <a href="@Url.Action("Details", new { id = item.MATT })" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                        <a href="@Url.Action("Edit", new { id = item.MATT })" class="btn btn-warning btn-sm mx-1"><i class="fas fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", new { id = item.MATT })" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

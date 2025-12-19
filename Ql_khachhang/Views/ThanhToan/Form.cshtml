@@ -1,0 +1,40 @@
+﻿@model THANHTOAN.Models.THANH_TOAN
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold"><i class="fas fa-user me-1"></i> Khách hàng</label>
+        @Html.DropDownList("MAKH", null, "-- Chọn khách hàng --", new { @class = "form-select shadow-sm" })
+        @Html.ValidationMessageFor(m => m.MAKH, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold"><i class="fas fa-calendar-alt me-1"></i> Ngày thanh toán</label>
+        @Html.TextBoxFor(m => m.NGAYTT, "{0:yyyy-MM-dd}", new { @class = "form-control shadow-sm", type = "date" })
+        @Html.ValidationMessageFor(m => m.NGAYTT, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold"><i class="fas fa-money-bill-wave me-1"></i> Tổng tiền</label>
+        <div class="input-group shadow-sm">
+            @Html.TextBoxFor(m => m.TONGTIEN, new { @class = "form-control text-end", placeholder = "0" })
+            <span class="input-group-text">VNĐ</span>
+        </div>
+        @Html.ValidationMessageFor(m => m.TONGTIEN, "", new { @class = "text-danger small" })
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold"><i class="fas fa-credit-card me-1"></i> Phương thức</label>
+        @Html.DropDownListFor(m => m.PHUONGTHUC, new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Tiền mặt", Value = "Tiền mặt" },
+            new SelectListItem { Text = "Chuyển khoản", Value = "Chuyển khoản" },
+            new SelectListItem { Text = "Thẻ (POS)", Value = "Thẻ (POS)" },
+            new SelectListItem { Text = "Ví điện tử", Value = "Ví điện tử" }
+        }, "-- Chọn phương thức --", new { @class = "form-select shadow-sm" })
+    </div>
+
+    <div class="col-12 mb-3">
+        <label class="form-label fw-bold"><i class="fas fa-tag me-1"></i> Khuyến mãi</label>
+        @Html.DropDownList("MAKM", null, "-- Không áp dụng --", new { @class = "form-select shadow-sm" })
+    </div>
+</div>

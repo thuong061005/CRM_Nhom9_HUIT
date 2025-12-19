@@ -1,0 +1,44 @@
+﻿@model THANHTOAN.Models.THANH_TOAN
+
+@{
+    ViewBag.Title = "Chỉnh sửa thanh toán";
+}
+
+<div class="row justify-content-start">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark d-flex align-items-center">
+                <i class="fas fa-edit me-2"></i>
+                <h5 class="mb-0 text-uppercase fw-bold">Cập nhật thông tin thanh toán</h5>
+            </div>
+
+            <div class="card-body bg-white p-4">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.MATT)
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-muted">Mã thanh toán</label>
+                        <input type="text" class="form-control bg-light" value="@Model.MATT" disabled />
+                    </div>
+
+                    <div class="row g-3">
+                        @Html.Partial("Form")
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-end">
+                        <a href="@Url.Action("Index")" class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-arrow-left me-1"></i> Quay lại
+                        </a>
+                        <button type="submit" class="btn btn-warning px-4 fw-bold">
+                            <i class="fas fa-save me-1"></i> Cập nhật dữ liệu
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
