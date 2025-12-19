@@ -51,6 +51,10 @@ public class ThanhToanController : Controller
         {
             ModelState.AddModelError("TONGTIEN", "Số tiền thanh toán phải lớn hơn 0.");
         }
+        if (string.IsNullOrEmpty(model.PHUONGTHUC))
+        {
+            ModelState.AddModelError("PHUONGTHUC", "Bạn chưa chọn phương thức thanh toán.");
+        }
 
         model.MATT = GenerateMaTT();
         model.NGAYTT = DateTime.Now;
@@ -102,19 +106,53 @@ public class ThanhToanController : Controller
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Edit(THANH_TOAN model)
+[ValidateAntiForgeryToken]
+public ActionResult Edit(THANH_TOAN model)
+{
+    if (string.IsNullOrEmpty(model.PHUONGTHUC))
     {
-        if (ModelState.IsValid)
+        ModelState.AddModelError("PHUONGTHUC", "Bạn chưa chọn phương thức thanh toán.");
+    }
+    // 1. Xử lý chuỗi rỗng cho MAKM
+    if (string.IsNullOrWhiteSpace(model.MAKM)) model.MAKM = null;
+
+    // 2. Xóa cache ModelState của TONGTIEN để cập nhật giá trị tính toán mới
+    ModelState.Remove("TONGTIEN");
+
+    if (ModelState.IsValid)
+    {
+        try
         {
+            // 3. Logic tính lại tiền (Nếu kế toán sửa giá gốc hoặc sửa mã KM)
+            if (!string.IsNullOrEmpty(model.MAKM))
+            {
+                var km = db.KHUYEN_MAI.Find(model.MAKM);
+                if (km != null)
+                {
+                    // Kiểm tra hạn dùng của KM tại thời điểm NGAYTT
+                    if (model.NGAYTT >= km.NGAYBD && model.NGAYTT <= km.NGAYKT)
+                    {
+                        decimal tile = km.GIAMGIA ?? 0;
+                        model.TONGTIEN = Math.Round(model.TONGTIEN * (1 - (tile / 100)), 2);
+                    }
+                }
+            }
+
+            // 4. Cập nhật vào DB
             db.Entry(model).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        LoadDropdown(model);
-        return View(model);
+        catch (Exception ex)
+        {
+            var msg = ex.InnerException?.InnerException?.Message ?? ex.Message;
+            ModelState.AddModelError("", "Không thể cập nhật: " + msg);
+        }
     }
+
+    LoadDropdown(model);
+    return View(model);
+}
 
     // ================= DELETE =================
     public ActionResult Delete(string id)
@@ -175,3 +213,4 @@ public class ThanhToanController : Controller
         base.Dispose(disposing);
     }
 }
+
