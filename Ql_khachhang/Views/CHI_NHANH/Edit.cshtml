@@ -1,0 +1,62 @@
+﻿@model Ql_khachhang.Models.CHI_NHANH
+
+@{
+    ViewBag.Title = "Cập nhật chi nhánh";
+}
+
+<h3 class="text-primary fw-bold mb-3">
+    <i class="fas fa-building me-2"></i> Cập nhật chi nhánh
+</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.MACHINHANH)
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+            <!-- TÊN CHI NHÁNH -->
+            <div class="mb-3">
+                @Html.LabelFor(model => model.TENCHINHANH, new { @class = "form-label fw-semibold" })
+                @Html.TextBoxFor(model => model.TENCHINHANH,
+                    new { @class = "form-control", placeholder = "Nhập tên chi nhánh" })
+                @Html.ValidationMessageFor(model => model.TENCHINHANH, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- ĐỊA CHỈ -->
+            <div class="mb-3">
+                @Html.LabelFor(model => model.DIACHI, new { @class = "form-label fw-semibold" })
+                @Html.TextBoxFor(model => model.DIACHI,
+                    new { @class = "form-control", placeholder = "Nhập địa chỉ" })
+                @Html.ValidationMessageFor(model => model.DIACHI, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- SỐ ĐIỆN THOẠI -->
+            <div class="mb-3">
+                @Html.LabelFor(model => model.SDT, new { @class = "form-label fw-semibold" })
+                @Html.TextBoxFor(model => model.SDT,
+                    new { @class = "form-control", placeholder = "Nhập số điện thoại" })
+                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+            </div>
+
+            <!-- BUTTON -->
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Lưu thay đổi
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i> Quay lại
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

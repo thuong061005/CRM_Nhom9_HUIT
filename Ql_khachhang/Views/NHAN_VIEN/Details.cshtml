@@ -1,0 +1,94 @@
+﻿@model Ql_khachhang.Models.NHAN_VIEN
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row justify-content-center">
+
+    <div class="col-xl-9 col-lg-10">
+
+
+
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="d-flex align-items-center mb-3">
+                <i class="fas fa-user-circle fa-lg text-primary me-2"></i>
+                <h4 class="mb-0 fw-bold text-primary">Thông tin nhân viên</h4>
+            </div>
+
+            <!-- HEADER -->
+            <div class="card-header bg-white border-bottom-0 py-4 d-flex align-items-center">
+                <img src="https://ui-avatars.com/api/?name=@Model.HOTEN&background=4e73df&color=fff&size=80"
+                     class="rounded-circle shadow me-4" />
+
+                <div>
+                    <h3 class="mb-1 fw-bold">@Model.HOTEN</h3>
+                    <span class="badge bg-secondary fs-6">
+                        @Model.CHUCVU
+                    </span>
+                </div>
+            </div>
+
+            <hr class="my-0" />
+
+            <!-- BODY -->
+            <div class="card-body px-4 py-4">
+
+                <div class="row g-4">
+
+                    <!-- MÃ NV -->
+                    <div class="col-md-4">
+                        <div class="border rounded-3 p-3 text-center h-100">
+                            <i class="fas fa-id-badge fa-2x text-primary mb-2"></i>
+                            <div class="text-muted small">Mã nhân viên</div>
+                            <div class="fw-bold fs-5">@Model.MANV</div>
+                        </div>
+                    </div>
+
+                    <!-- LƯƠNG -->
+                    <div class="col-md-4">
+                        <div class="border rounded-3 p-3 text-center h-100">
+                            <i class="fas fa-money-bill-wave fa-2x text-success mb-2"></i>
+                            <div class="text-muted small">Lương</div>
+                            <div class="fw-bold fs-5 text-success">
+                                @String.Format("{0:N0} ₫", Model.LUONG)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHI NHÁNH -->
+                    <div class="col-md-4">
+                        <div class="border rounded-3 p-3 text-center h-100">
+                            <i class="fas fa-building fa-2x text-info mb-2"></i>
+                            <div class="text-muted small">Chi nhánh</div>
+                            <div class="fw-bold fs-6">
+                                @Model.CHI_NHANH.TENCHINHANH
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="card-footer bg-light text-end py-3">
+                <a href="@Url.Action("Edit", new { id = Model.MANV })"
+                   class="btn btn-warning px-4">
+                    <i class="fas fa-edit me-1"></i> Sửa
+                </a>
+
+                <a href="@Url.Action("Index")"
+                   class="btn btn-outline-secondary ms-2 px-4">
+                    <i class="fas fa-arrow-left me-1"></i> Danh sách
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,77 @@
+﻿@model Ql_khachhang.Models.CHI_NHANH
+
+@{
+    ViewBag.Title = "Thêm chi nhánh";
+}
+
+<div class="container-fluid">
+
+    <!-- TIÊU ĐỀ -->
+    <div class="d-flex align-items-center mb-4">
+        <i class="fas fa-building fa-2x text-primary me-3"></i>
+        <div>
+            <h3 class="mb-0 fw-bold text-primary">Thêm chi nhánh mới</h3>
+            <small class="text-muted">Nhập thông tin chi nhánh vào hệ thống</small>
+        </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                <div class="row g-4">
+
+                    <!-- TÊN CHI NHÁNH -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-building me-1"></i> Tên chi nhánh
+                        </label>
+                        @Html.TextBoxFor(m => m.TENCHINHANH,
+                            new { @class = "form-control", placeholder = "Chi nhánh Quận 1" })
+                        @Html.ValidationMessageFor(m => m.TENCHINHANH, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <!-- ĐỊA CHỈ -->
+                    <div class="col-md-12">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-map-marker-alt me-1"></i> Địa chỉ
+                        </label>
+                        @Html.TextBoxFor(m => m.DIACHI,
+                            new { @class = "form-control", placeholder = "123 Nguyễn Huệ, Q1" })
+                        @Html.ValidationMessageFor(m => m.DIACHI, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <!-- SỐ ĐIỆN THOẠI -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-phone me-1"></i> Số điện thoại
+                        </label>
+                        @Html.TextBoxFor(m => m.SDT,
+                            new { @class = "form-control", placeholder = "090xxxxxxx" })
+                        @Html.ValidationMessageFor(m => m.SDT, "", new { @class = "text-danger small" })
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fas fa-save me-1"></i> Lưu chi nhánh
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,97 @@
+﻿@model Ql_khachhang.Models.NHAN_VIEN
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+
+<div class="container-fluid">
+
+    <!-- TIÊU ĐỀ -->
+    <div class="d-flex align-items-center mb-4">
+        <i class="fas fa-user-plus fa-2x text-success me-3"></i>
+        <div>
+            <h3 class="mb-0 fw-bold text-success">Thêm nhân viên mới</h3>
+            <small class="text-muted">Nhập thông tin nhân viên vào hệ thống</small>
+        </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row g-4">
+
+                    <!-- THÔNG BÁO MÃ NV -->
+                    <div class="col-12">
+                        <div class="alert alert-info py-2">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Mã nhân viên sẽ được <strong>tạo tự động</strong> bởi hệ thống
+                        </div>
+                    </div>
+
+                    <!-- HỌ TÊN -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-user me-1"></i> Họ tên
+                        </label>
+                        @Html.TextBoxFor(m => m.HOTEN, new { @class = "form-control", placeholder = "Nhập họ tên nhân viên" })
+                        @Html.ValidationMessageFor(m => m.HOTEN, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <!-- CHỨC VỤ -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-briefcase me-1"></i> Chức vụ
+                        </label>
+                        @Html.TextBoxFor(m => m.CHUCVU, new { @class = "form-control", placeholder = "VD: Kỹ thuật viên" })
+                        @Html.ValidationMessageFor(m => m.CHUCVU, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <!-- LƯƠNG -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-money-bill-wave me-1"></i> Lương (VNĐ)
+                        </label>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.LUONG, new { @class = "form-control", type = "number", step = "1000", placeholder = "VD: 8000000" })
+                            <span class="input-group-text">₫</span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.LUONG, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <!-- CHI NHÁNH -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            <i class="fas fa-building me-1"></i> Chi nhánh
+                        </label>
+                        @Html.DropDownList(
+                            "MACHINHANH",
+                            null,
+                            "-- Chọn chi nhánh --",
+                            new { @class = "form-select" }
+                        )
+                        @Html.ValidationMessageFor(m => m.MACHINHANH, "", new { @class = "text-danger small" })
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save me-1"></i> Lưu nhân viên
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

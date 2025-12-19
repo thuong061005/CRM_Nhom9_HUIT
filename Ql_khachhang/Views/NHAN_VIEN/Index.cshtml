@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Ql_khachhang.Models.NHAN_VIEN>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="text-primary fw-bold">
+        <i class="fas fa-user-tie me-2"></i> Danh sách nhân viên
+    </h3>
+
+    <a href="@Url.Action("Create")" class="btn btn-primary shadow-sm">
+        <i class="fas fa-plus me-1"></i> Thêm nhân viên
+    </a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        @using (Html.BeginForm("Index", "NHAN_VIEN", FormMethod.Get))
+        {
+            <div class="row g-3 mb-3">
+
+                <!-- LỌC CHI NHÁNH -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Chi nhánh</label>
+                    @Html.DropDownList(
+                        "machinhanh",
+                        (SelectList)ViewBag.MACHINHANH,
+                        "-- Tất cả chi nhánh --",
+                        new { @class = "form-select" }
+                    )
+                </div>
+
+                <!-- LỌC CHỨC VỤ -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Chức vụ</label>
+                    <input type="text"
+                           name="chucvu"
+                           value="@ViewBag.ChucVu"
+                           class="form-control"
+                           placeholder="VD: Quản lý" />
+                </div>
+
+                <!-- BUTTON -->
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success me-2">
+                        <i class="fas fa-filter me-1"></i> Lọc
+                    </button>
+
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fas fa-undo me-1"></i> Reset
+                    </a>
+                </div>
+            </div>
+        }
+
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>HỌ TÊN</th>
+                    <th>CHỨC VỤ</th>
+                    <th class="text-end">LƯƠNG</th>
+                    <th>CHI NHÁNH</th>
+                    <th class="text-center">THAO TÁC</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.HOTEN</td>
+                        <td>@item.CHUCVU</td>
+                        <td class="text-end">
+                            @String.Format("{0:N0} ₫", item.LUONG)
+                        </td>
+                        <td>@item.CHI_NHANH.TENCHINHANH</td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Edit", new { id = item.MANV })"
+                               class="btn btn-sm btn-warning me-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <a href="@Url.Action("Details", new { id = item.MANV })"
+                               class="btn btn-sm btn-info me-1 text-white">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a href="@Url.Action("Delete", new { id = item.MANV })"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Bạn có chắc muốn xóa nhân viên này?');">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+

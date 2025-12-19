@@ -1,0 +1,112 @@
+﻿@model Ql_khachhang.Models.CHI_NHANH
+
+@{
+    ViewBag.Title = "Xóa chi nhánh";
+}
+
+<div class="container-fluid">
+
+    <!-- TIÊU ĐỀ -->
+    <div class="d-flex align-items-center mb-4">
+        <i class="fas fa-building fa-2x text-danger me-3"></i>
+        <div>
+            <h3 class="mb-0 fw-bold text-danger">Xóa chi nhánh</h3>
+            <small class="text-muted">Xác nhận trước khi xóa chi nhánh khỏi hệ thống</small>
+        </div>
+    </div>
+
+    <!-- THÔNG BÁO LỖI -->
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            @ViewBag.Error
+        </div>
+    }
+
+    <!-- CARD -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+
+            <h5 class="fw-bold mb-3 text-secondary">
+                <i class="fas fa-info-circle me-2"></i> Thông tin chi nhánh
+            </h5>
+            @if (Model.NHAN_VIEN != null && Model.NHAN_VIEN.Any())
+            {
+                <hr />
+                <h5 class="fw-bold text-danger mt-4">
+                    <i class="fas fa-users me-2"></i>
+                    Nhân viên thuộc chi nhánh này
+                </h5>
+
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Bạn cần xử lý (xóa hoặc chuyển chi nhánh) các nhân viên bên dưới trước khi xóa.
+                </div>
+
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã NV</th>
+                            <th>Họ tên</th>
+                            <th>Chức vụ</th>
+                            <th class="text-end">Lương</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var nv in Model.NHAN_VIEN)
+                        {
+                            <tr>
+                                <td>@nv.MANV</td>
+                                <td>@nv.HOTEN</td>
+                                <td>@nv.CHUCVU</td>
+                                <td class="text-end">
+                                    @String.Format("{0:N0} ₫", nv.LUONG)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            <table class="table table-borderless">
+                <tr>
+                    <th style="width: 200px;">Tên chi nhánh:</th>
+                    <td>@Model.TENCHINHANH</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ:</th>
+                    <td>@Model.DIACHI</td>
+                </tr>
+                <tr>
+                    <th>Số điện thoại:</th>
+                    <td>@Model.SDT</td>
+                </tr>
+            </table>
+
+            <hr />
+
+            <div class="alert alert-warning">
+                <i class="fas fa-warning me-2"></i>
+                Hành động này <strong>không thể hoàn tác</strong>.
+                Bạn có chắc chắn muốn xóa chi nhánh này?
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="d-flex justify-content-end gap-3">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary px-4">
+                        <i class="fas fa-arrow-left me-1"></i> Quay lại
+                    </a>
+
+                    <button type="submit" class="btn btn-danger px-4"
+                            onclick="return confirm('Bạn chắc chắn muốn xóa chi nhánh này?');">
+                        <i class="fas fa-trash me-1"></i> Xóa chi nhánh
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
