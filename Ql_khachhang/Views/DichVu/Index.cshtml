@@ -1,0 +1,60 @@
+@model IEnumerable<Ql_khachhang.Models.DICH_VU>
+
+@{
+    ViewBag.Title = "Quản lý Dịch vụ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary font-weight-bold">DANH SÁCH DỊCH VỤ</h2>
+        <a href="@Url.Action("Create", "DICH_VU")" class="btn btn-success">
+            <i class="fas fa-plus"></i> Thêm Dịch Vụ Mới
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Tên Dịch Vụ</th>
+                    <th class="text-center">Đơn Giá</th>
+                    <th class="text-center">Mô Tả</th>
+                    <th class="text-center" style="width: 200px;">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="font-weight-bold text-dark">
+                            @Html.DisplayFor(modelItem => item.TENDV)
+                        </td>
+                        <td class="text-right text-danger font-weight-bold">
+                            @string.Format("{0:N0}", item.GIA) đ
+                        </td>
+                        <td class="text-muted">
+                            @Html.DisplayFor(modelItem => item.MOTA)
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a href="@Url.Action("Edit", new { id = item.MADV })" class="btn btn-sm btn-primary" title="Sửa">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="@Url.Action("Details", new { id = item.MADV })" class="btn btn-sm btn-info" title="Chi tiết">
+                                    <i class="fa fa-info-circle"></i>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.MADV })" class="btn btn-sm btn-danger" title="Xóa">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@* Thêm thư viện icon nếu Layout chưa có *@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
