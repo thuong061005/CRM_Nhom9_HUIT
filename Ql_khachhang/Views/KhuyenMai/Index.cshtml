@@ -1,0 +1,55 @@
+@model IEnumerable<Ql_khachhang.Models.KHUYEN_MAI>
+
+@{
+    ViewBag.Title = "Quản lý Khuyến mãi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary font-weight-bold text-uppercase">Danh sách chương trình Khuyến mãi</h2>
+        <a href="@Url.Action("Create")" class="btn btn-success font-weight-bold">
+            <i class="fas fa-plus-circle"></i> Tạo Mới Khuyến Mãi
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered shadow-sm align-middle">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th class="text-center">Tên Chương Trình</th>
+                    <th class="text-center">Ngày Bắt Đầu</th>
+                    <th class="text-center">Ngày Kết Thúc</th>
+                    <th class="text-center">Mức Giảm</th>
+                    <th class="text-center" style="width: 180px;">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle font-weight-bold">@item.TENKM</td>
+                        <td class="text-center align-middle">@(item.NGAYBD.HasValue ? item.NGAYBD.Value.ToString("dd/MM/yyyy") : "---")</td>
+                        <td class="text-center align-middle">@(item.NGAYKT.HasValue ? item.NGAYKT.Value.ToString("dd/MM/yyyy") : "---")</td>
+
+                        <td class="text-center align-middle">
+                            <span class="badge shadow-sm" style="background-color: #ff8c00; color: white; font-size: 1rem; padding: 6px 12px; border-radius: 4px; display: inline-block; min-width: 80px;">
+                                <i class="fas fa-bolt"></i> -@Html.DisplayFor(modelItem => item.GIAMGIA)%
+                            </span>
+                        </td>
+
+                        <td class="text-center align-middle">
+                            <div class="btn-group">
+                                <a href="@Url.Action("Edit", new { id = item.MAKM })" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="@Url.Action("Details", new { id = item.MAKM })" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                <a href="@Url.Action("Delete", new { id = item.MAKM })" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
