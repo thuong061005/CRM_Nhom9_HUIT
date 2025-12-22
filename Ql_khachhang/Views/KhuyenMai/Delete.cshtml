@@ -1,0 +1,50 @@
+@model Ql_khachhang.Models.KHUYEN_MAI
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KHUYEN_MAI</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TENKM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENKM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NGAYBD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAYBD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NGAYKT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAYKT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GIAMGIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIAMGIA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MAKM }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
